@@ -9,17 +9,20 @@ import org.springframework.web.bind.annotation.*;
 public class ProductsController
 {
   // Controller => İstek-Cevap konfigürasyonunu kontrol eder.
-  @GetMapping("{name}")
-  public String hello(@PathVariable String name) {
-    return "Hello " + name;
+  @GetMapping()
+  public Product hello() {
+    Product product = new Product(1, "Ürün 1", 500);
+    return product;
   }
   @PostMapping
-  public String goodBye() {
+  public String goodBye(@RequestBody Product product) {
     // Console
-    return "Good Bye";
+    return "Gönderilen ürün idsi: " + product.getId();
   }
-
 }
+
+// JSON Parse -> Spring boot otomatize ediyor.
+
 // API nedir? Restful api nedir?
 // XML nedir?
 // JSON Nedir?
