@@ -1,11 +1,16 @@
 package com.etiya.academy.controller;
 
+import com.etiya.academy.dto.product.CreateProductDto;
+import com.etiya.academy.dto.product.ListProductDto;
 import com.etiya.academy.entity.Product;
 import com.etiya.academy.service.ProductService;
 import com.etiya.academy.service.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -17,19 +22,19 @@ public class ProductsController
    //5 temel operasyon (CRUD)
 
    @GetMapping()
-   public List<Product> getAll() {
+   public ResponseEntity<List<ListProductDto>> getAll() {
      // ... -> Veritabanındaki (in memory) tüm verileri listele..
-     return productService.getAll();
+     // Product -> ProductListDto
+     return ResponseEntity.ok(productService.getAll());
    }
    @PostMapping
-   public void add(@RequestBody Product product)
+   public ResponseEntity<Void> add(@RequestBody CreateProductDto createProductDto)
    {
-     productService.add(product);
+     // CreateProductDto -> Product
+     productService.add(createProductDto);
+     return new ResponseEntity<Void>(HttpStatus.CREATED);
    }
-
-   // ProductController'daki 5 temel operasyonu kodlamak
-   // getall -> 200
-   // getbyid -> eğer id ile bir veriye rastlanmaz ise, status code 404 olsun.
-   // update-delete -> 200
-   // add -> eğer başarılı ise status code 201 dönsün.
+   // Default status code => 200 (BAŞARILI)
 }
+
+// DTO -> Data Transfer Object
