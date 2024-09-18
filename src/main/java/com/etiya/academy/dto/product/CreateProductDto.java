@@ -14,5 +14,5 @@ public class CreateProductDto
   // Ürün ekleme işleminde gerekli alanları tanımlayabileceğim nesne.
   private String name;
   private double unitPrice;
-  private int unitsInStock;
+  private int stock;
 }

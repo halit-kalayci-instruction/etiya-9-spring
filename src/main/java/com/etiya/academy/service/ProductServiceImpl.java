@@ -3,6 +3,7 @@ package com.etiya.academy.service;
 import com.etiya.academy.dto.product.CreateProductDto;
 import com.etiya.academy.dto.product.ListProductDto;
 import com.etiya.academy.entity.Product;
+import com.etiya.academy.mapper.ProductMapper;
 import com.etiya.academy.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,11 +45,18 @@ public class ProductServiceImpl implements ProductService
       throw new RuntimeException("Ürün ismi 3 haneden kısa olamaz.");
 
     Random random = new Random();
+
+    // Manual mapping
+    /*
     Product product = new Product();
     product.setId(random.nextInt(1,9999));
     product.setName(createProductDto.getName());
     product.setUnitPrice(createProductDto.getUnitPrice());
     product.setUnitsInStock(createProductDto.getUnitsInStock());
+    */
+    // Auto mapping
+    Product product = ProductMapper.INSTANCE.productFromCreateDto(createProductDto);
+    //product.setId(random.nextInt(1,99999));
 
     productRepository.add(product);
   }
