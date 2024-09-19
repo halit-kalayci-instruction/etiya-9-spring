@@ -17,5 +17,6 @@ public interface ProductMapper
   @Mapping(source = "stock", target = "unitsInStock")
   Product productFromCreateDto(CreateProductDto dto);
 }
-// Global Exception Handling
 // Spring Validation ile Validasyon
+// Global Exception Handling
+// PostgreSQL kurulumu Dbeaver bağlantısı.

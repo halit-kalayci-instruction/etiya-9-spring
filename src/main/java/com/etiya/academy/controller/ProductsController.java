@@ -5,6 +5,7 @@ import com.etiya.academy.dto.product.ListProductDto;
 import com.etiya.academy.entity.Product;
 import com.etiya.academy.service.ProductService;
 import com.etiya.academy.service.ProductServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class ProductsController
      return ResponseEntity.ok(productService.getAll());
    }
    @PostMapping
-   public ResponseEntity<Void> add(@RequestBody CreateProductDto createProductDto)
+   public ResponseEntity<Void> add(@RequestBody @Valid CreateProductDto createProductDto)
    {
      // CreateProductDto -> Product
      productService.add(createProductDto);

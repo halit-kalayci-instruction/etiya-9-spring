@@ -39,13 +39,6 @@ public class ProductServiceImpl implements ProductService
     // 1 validasyon (verinin üstünde olan bir kullanım) (constraint kısıt)
     // 2 iş kuralı
     // Mapping
-
-
-    if(createProductDto.getName().length() < 3)
-      throw new RuntimeException("Ürün ismi 3 haneden kısa olamaz.");
-
-    Random random = new Random();
-
     // Manual mapping
     /*
     Product product = new Product();
