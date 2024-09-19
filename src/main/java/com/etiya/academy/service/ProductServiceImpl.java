@@ -1,5 +1,6 @@
 package com.etiya.academy.service;
 
+import com.etiya.academy.core.exception.type.BusinessException;
 import com.etiya.academy.dto.product.CreateProductDto;
 import com.etiya.academy.dto.product.ListProductDto;
 import com.etiya.academy.entity.Product;
@@ -48,6 +49,14 @@ public class ProductServiceImpl implements ProductService
     product.setUnitsInStock(createProductDto.getUnitsInStock());
     */
     // Auto mapping
+
+    boolean productWithSameName = productRepository.getAll()
+            .stream()
+            .anyMatch(product -> product.getName().equals(createProductDto.getName()));
+
+    if(productWithSameName)
+      throw new BusinessException("Böyle bir ürün zaten var.");
+
     Product product = ProductMapper.INSTANCE.productFromCreateDto(createProductDto);
     //product.setId(random.nextInt(1,99999));
 
@@ -55,3 +64,15 @@ public class ProductServiceImpl implements ProductService
   }
 }
 // 10.30
+
+
+
+// Bireysel: Veri Modelleme nedir? Normalizasyon nedir? Araştırılıp medium yazısı yazma.
+
+// Pair: Projeye Category entitysi oluşturma ve crud işlemlerini kodlama.
+// Hali hazırdaki product entitysi için de validation ve iş kurallarının entegre edilmesi
+// (Create-Update en az 3'er validasyon ve iş kuralı örneği)
+
+// !!!
+// Podman kurulumları tamamlanmalı. (POSTGRESQL,DBEAVER)
+// Veri Modelleme ve SQL

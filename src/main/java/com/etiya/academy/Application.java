@@ -13,27 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
-@RestControllerAdvice
 public class Application {
-
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
-  }
-
-  // Fallback method
-  // Exception handler -> Uygulamada belirlediğim türdeki ex. nerede fırlarsa fırlasın. Bu methoda gelsin.
-  // Ex. Handler methodların 1. parametresi oto. olarak fırlayan ex. doldurulur.
-  @ExceptionHandler({ MethodArgumentNotValidException.class })
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public Map<String,String> handleValidationException(MethodArgumentNotValidException exception) {
-    Map<String,String> errors = new HashMap<>();
-
-    for (FieldError error:
-         exception.getBindingResult().getFieldErrors()) {
-      errors.put(error.getField(), error.getDefaultMessage());
-    }
-    // stock, must be greater than or equal to 0
-    // name, must not be empty
-    return errors;
   }
 }
