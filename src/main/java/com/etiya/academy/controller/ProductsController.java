@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
@@ -36,6 +37,16 @@ public class ProductsController
      return new ResponseEntity<Void>(HttpStatus.CREATED);
    }
    // Default status code => 200 (BAŞARILI)
+  @GetMapping("{name}")
+  public ResponseEntity<List<ListProductDto>> getByName(@PathVariable String name)
+  {
+    return ResponseEntity.ok(productService.getByName(name));
+  }
+  @GetMapping("name-price")
+  public ResponseEntity<List<ListProductDto>> getByNameAndPrice(@RequestParam String name, @RequestParam BigDecimal unitPrice)
+  {
+    return ResponseEntity.ok(productService.getByNameAndUnitPrice(name,unitPrice));
+  }
 }
 
 // DTO -> Data Transfer Object

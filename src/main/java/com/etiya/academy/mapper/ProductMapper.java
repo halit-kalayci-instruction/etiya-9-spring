@@ -15,6 +15,7 @@ public interface ProductMapper
   // Source -> Target'a ulaşmak için kullandığım kaynak.
   // Eğer isimler aynı ise ekstra konfigürasyon gerekmez
   @Mapping(source = "stock", target = "unitsInStock")
+  @Mapping(source="categoryId", target = "category.id")
   Product productFromCreateDto(CreateProductDto dto);
 }
 // Spring Validation ile Validasyon

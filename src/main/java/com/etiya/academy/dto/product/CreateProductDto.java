@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,11 +21,15 @@ public class CreateProductDto
   @NotBlank // ""
   private String name;
 
-  @NotNull
-  @Positive
-  private double unitPrice;
 
   @NotNull
   @PositiveOrZero
   private int stock;
+
+  @NotNull
+  private BigDecimal unitPrice;
+
+  @NotNull
+  @Positive
+  private int categoryId;
 }

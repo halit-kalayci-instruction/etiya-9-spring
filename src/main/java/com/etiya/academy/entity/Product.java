@@ -42,4 +42,3 @@ public class Product
   @JoinColumn(name="categoryid")
   private Category category;
 }
-// 10.20 -> veritabanı işlemleri
