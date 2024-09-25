@@ -60,6 +60,13 @@ public class ProductServiceImpl implements ProductService
     Product product = ProductMapper.INSTANCE.productFromCreateDto(createProductDto);
     //product.setId(random.nextInt(1,99999));
 
+    // String sql = "Select * from products";
+
+    // repository.execute(sql);
+
+    // Product product = "Select * from products where id = 1";
+    // product.getName()
+
     productRepository.add(product);
   }
 }
