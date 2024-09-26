@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ProductRepository extends JpaRepository<Product, Integer>
@@ -14,6 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer>
   // 2. JPQL
   // 3. Native SQL
   List<Product> findByNameLikeIgnoreCase(String name);
+
+  Optional<Product> findByNameIgnoreCase(String name);
 
   @Query(value = "Select p from Product p " +
           "inner join p.category " +
