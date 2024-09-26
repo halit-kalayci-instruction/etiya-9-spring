@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService
   private final ProductBusinessRules productBusinessRules;
 
   @Override
-  @Cacheable(value = "products", key = "#id") // product.1, product.2
+  @Cacheable(value = "product", key = "#id") // product.1, product.2
   public ListProductDto getById(int id) {
     Product product = productRepository.findById(id).orElseThrow(() -> new BusinessException("Böyle bir ürün yok"));
     ProductMapper mapper = ProductMapper.INSTANCE;
