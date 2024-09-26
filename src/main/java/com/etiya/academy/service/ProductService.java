@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ProductService
 {
+   ListProductDto getById(int id);
    List<ListProductDto> getAll();
    List<ListProductDto> getByName(String name);
    List<ListProductDto> getByNameAndUnitPrice(String name, BigDecimal unitPrice);

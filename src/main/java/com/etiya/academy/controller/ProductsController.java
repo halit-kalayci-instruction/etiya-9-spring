@@ -47,6 +47,12 @@ public class ProductsController
   {
     return ResponseEntity.ok(productService.getByNameAndUnitPrice(name,unitPrice));
   }
+  @GetMapping("id")
+  public ResponseEntity<ListProductDto> getById(@RequestParam int id)
+  {
+    return ResponseEntity.ok(productService.getById(id));
+  }
+
 }
 
 // DTO -> Data Transfer Object

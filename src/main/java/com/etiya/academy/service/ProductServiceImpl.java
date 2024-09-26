@@ -10,6 +10,9 @@ import com.etiya.academy.rules.ProductBusinessRules;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,7 +25,17 @@ public class ProductServiceImpl implements ProductService
 {
   private final ProductRepository productRepository;
   private final ProductBusinessRules productBusinessRules;
+
   @Override
+  @Cacheable(value = "products", key = "#id") // product.1, product.2
+  public ListProductDto getById(int id) {
+    Product product = productRepository.findById(id).orElseThrow(() -> new BusinessException("Böyle bir ürün yok"));
+    ProductMapper mapper = ProductMapper.INSTANCE;
+    return mapper.productDtoFromProduct(product);
+  }
+
+  @Override
+  @Cacheable(value = "products")
   public List<ListProductDto> getAll() {
     List<Product> products = productRepository.findAll();
     ProductMapper productMapper = ProductMapper.INSTANCE;
@@ -44,6 +57,7 @@ public class ProductServiceImpl implements ProductService
   }
 
   @Override
+  @CacheEvict(value = "products", allEntries = true)
   public void add(CreateProductDto createProductDto) {
     productBusinessRules.productWithSameNameShouldNotExist(createProductDto.getName());
     Product product = ProductMapper.INSTANCE.productFromCreateDto(createProductDto);

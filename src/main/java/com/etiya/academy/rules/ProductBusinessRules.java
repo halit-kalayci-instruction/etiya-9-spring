@@ -28,3 +28,5 @@ public class ProductBusinessRules
       throw new BusinessException("Böyle bir ürün yok.");
   }
 }
+// cacheleme -> redis
+// -d -> detached
