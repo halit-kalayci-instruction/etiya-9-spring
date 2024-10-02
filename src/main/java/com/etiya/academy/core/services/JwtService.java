@@ -34,3 +34,6 @@ public class JwtService
     return Keys.hmacShaKeyFor(keyBytes);
   }
 }
+
+// Spring Security + JWT ?
+
