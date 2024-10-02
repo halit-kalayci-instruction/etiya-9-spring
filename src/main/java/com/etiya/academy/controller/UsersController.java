@@ -1,5 +1,6 @@
 package com.etiya.academy.controller;
 
+import com.etiya.academy.dto.auth.LoginRequest;
 import com.etiya.academy.dto.user.CreateUserRequest;
 import com.etiya.academy.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,12 @@ public class UsersController {
   public ResponseEntity create(@RequestBody CreateUserRequest createUserRequest) {
     userService.create(createUserRequest);
     return ResponseEntity.ok("Kullanıcı eklendi.");
+  }
+
+  @PostMapping("login")
+  public ResponseEntity login(@RequestBody LoginRequest loginRequest)
+  {
+    String token = userService.login(loginRequest);
+    return ResponseEntity.ok(token);
   }
 }

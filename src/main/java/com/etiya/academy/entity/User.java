@@ -31,6 +31,6 @@ public class User
   @Column(name="surname")
   private String surname;
 
-  @Column(name="identityNo")
+  @Column(name="identityno")
   private String identityNo;
 }
