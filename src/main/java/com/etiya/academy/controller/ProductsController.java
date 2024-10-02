@@ -2,9 +2,7 @@ package com.etiya.academy.controller;
 
 import com.etiya.academy.dto.product.CreateProductDto;
 import com.etiya.academy.dto.product.ListProductDto;
-import com.etiya.academy.entity.Product;
-import com.etiya.academy.service.ProductService;
-import com.etiya.academy.service.ProductServiceImpl;
+import com.etiya.academy.service.product.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.net.URI;
 import java.util.List;
 
 @RestController

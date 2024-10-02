@@ -20,3 +20,6 @@ public interface ProductMapper
   ListProductDto productDtoFromProduct(Product product);
   List<ListProductDto> productDtoListFromProductList(List<Product> products);
 }
+
+// Authentication -> Kimlik doğrulama (Giriş yapıldı mı?)
+// Authorization -> Rol doğrulama (Giriş yapan kullanıcı bu işlemi yapmaya yetkili mi?)

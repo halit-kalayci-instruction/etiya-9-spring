@@ -1,4 +1,4 @@
-package com.etiya.academy.service;
+package com.etiya.academy.service.product;
 
 import com.etiya.academy.core.exception.type.BusinessException;
 import com.etiya.academy.dto.product.CreateProductDto;
@@ -7,17 +7,13 @@ import com.etiya.academy.entity.Product;
 import com.etiya.academy.mapper.ProductMapper;
 import com.etiya.academy.repository.ProductRepository;
 import com.etiya.academy.rules.ProductBusinessRules;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +33,7 @@ public class ProductServiceImpl implements ProductService
   @Override
   @Cacheable(value = "products")
   public List<ListProductDto> getAll() {
+    // başka bi servis url
     List<Product> products = productRepository.findAll();
     ProductMapper productMapper = ProductMapper.INSTANCE;
     return productMapper.productDtoListFromProductList(products);
@@ -64,3 +61,8 @@ public class ProductServiceImpl implements ProductService
     productRepository.save(product);
   }
 }
+// loglama- ELK Stack elastic search-logstash-kibana  -> haftaya veri modelleme sonrası
+
+
+// Mikroservis mimarisi
+// Microservices

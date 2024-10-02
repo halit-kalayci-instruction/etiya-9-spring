@@ -1,4 +1,4 @@
-package com.etiya.academy.service;
+package com.etiya.academy.service.product;
 
 import com.etiya.academy.dto.product.CreateProductDto;
 import com.etiya.academy.dto.product.ListProductDto;
