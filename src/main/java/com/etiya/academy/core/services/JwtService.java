@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 
@@ -26,6 +27,28 @@ public class JwtService
             .subject(username)
             .signWith(getSignKey())
             .compact();
+  }
+
+  public Boolean validateToken(String token)
+  {
+    SecretKey key = (SecretKey) getSignKey();
+    return Jwts.parser()
+            .verifyWith(key)
+            .build()
+            .parseSignedClaims(token)
+            .getPayload()
+            .getExpiration()
+            .after(new Date());
+  }
+
+  public String extractUsername(String token){
+    SecretKey key = (SecretKey) getSignKey();
+    return Jwts.parser()
+            .verifyWith(key)
+            .build()
+            .parseSignedClaims(token)
+            .getPayload()
+            .getSubject();
   }
 
   private Key getSignKey()
