@@ -15,18 +15,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UsersController {
   private final UserService userService;
-
-
-  @PostMapping()
-  public ResponseEntity create(@RequestBody CreateUserRequest createUserRequest) {
-    userService.create(createUserRequest);
-    return ResponseEntity.ok("Kullanıcı eklendi.");
-  }
-
-  @PostMapping("login")
-  public ResponseEntity login(@RequestBody LoginRequest loginRequest)
-  {
-    String token = userService.login(loginRequest);
-    return ResponseEntity.ok(token);
-  }
 }

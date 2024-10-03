@@ -41,9 +41,9 @@ public class GlobalExceptionHandler {
   }
 
 
-  @ExceptionHandler({RuntimeException.class})
+/*  @ExceptionHandler({RuntimeException.class})
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public String handleRuntimeException(){
     return "Bilinmedik hata";
-  }
+  } */
 }

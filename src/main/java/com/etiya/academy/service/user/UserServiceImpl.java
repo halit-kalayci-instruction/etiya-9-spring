@@ -21,28 +21,10 @@ import java.sql.Date;
 public class UserServiceImpl implements UserService
 {
   private final UserRepository userRepository;
-  private final PasswordEncoder passwordEncoder;
-  private final UserMapper userMapper;
-  private final JwtService jwtService;
   @Override
-  public void create(CreateUserRequest createUserRequest) {
-    // iş kuralları vs..
-    // aynı email ile 2. kullanıcı eklenemez..
-    User user = userMapper.userFromCreateRequest(createUserRequest);
+  public User create(User user) {
     userRepository.save(user);
-  }
-
-  @Override
-  public String login(LoginRequest loginRequest) {
-    User user = userRepository
-            .findByEmailIgnoreCase(loginRequest.getEmail()).orElseThrow(() -> new BusinessException("E-posta veya şifre hatalı."));
-
-    boolean passwordMatching = passwordEncoder.matches(loginRequest.getPassword(), user.getPassword());
-    if(!passwordMatching)
-      throw new BusinessException("E-posta veya şifre hatalı.");
-
-    // ... JWT ÜRET
-    return jwtService.generateToken(user.getEmail());
+    return user;
   }
 
   @Override

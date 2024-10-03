@@ -1,6 +1,8 @@
 package com.etiya.academy.core.services;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,41 +21,45 @@ public class JwtService
   private String SECRET_KEY;
 
 
-  public String generateToken(String username)
-  {
-    return Jwts.builder()
+  public String generateToken(String userName) {
+    return Jwts
+            .builder()
             .issuedAt(new Date(System.currentTimeMillis()))
             .expiration(new Date(System.currentTimeMillis() + EXPIRATION))
-            .subject(username)
+            .subject(userName)
             .signWith(getSignKey())
             .compact();
   }
 
   public Boolean validateToken(String token)
   {
-    SecretKey key = (SecretKey) getSignKey();
-    return Jwts.parser()
-            .verifyWith(key)
-            .build()
-            .parseSignedClaims(token)
-            .getPayload()
-            .getExpiration()
-            .after(new Date());
+    try {
+      return getClaimsFromToken(token).getExpiration().after(new Date());
+    }
+    catch(Exception e)
+    {
+      // Token bir şekilde çözümlenemezse..
+      return false;
+    }
   }
-
-  public String extractUsername(String token){
-    SecretKey key = (SecretKey) getSignKey();
-    return Jwts.parser()
-            .verifyWith(key)
-            .build()
-            .parseSignedClaims(token)
-            .getPayload()
-            .getSubject();
-  }
-
-  private Key getSignKey()
+  public String extractUsername(String token)
   {
-    byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+    return getClaimsFromToken(token).getSubject();
+  }
+
+  private Claims getClaimsFromToken(String token)
+  {
+    SecretKey key = (SecretKey) getSignKey();
+    return Jwts
+            .parser()
+            .verifyWith(key)
+            .build()
+            .parseSignedClaims(token)
+            .getPayload();
+  }
+
+  private Key getSignKey() {
+    byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
     return Keys.hmacShaKeyFor(keyBytes);
   }
 }
